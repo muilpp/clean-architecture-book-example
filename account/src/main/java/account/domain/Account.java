@@ -1,5 +1,8 @@
 package account.domain;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 public class Account {
 
     private AccountId accountId;
@@ -15,7 +18,7 @@ public class Account {
             return false;
         }
 
-        Activity withdrawal = new Activity(this.id, targetAccountId, LocalTime.now, money);
+        Activity withdrawal = new Activity(this.id, targetAccountId, LocalTime.now(), money);
         this.activityWindow.addActivity(withdrawal);
 
         return true;
