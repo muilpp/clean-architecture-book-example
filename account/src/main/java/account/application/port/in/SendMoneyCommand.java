@@ -2,11 +2,16 @@ package account.application.port.in;
 
 import lombok.Getter;
 
-@Getter
-public class SendMoneyCommand {
+import javax.validation.constraints.NotNull;
 
+@Getter
+public class SendMoneyCommand extends SelfValidation<SendMoneyCommand> {
+
+    @NotNull
     private final AccountId sourceAccountId;
+    @NotNull
     private final AccountId targetAccountId;
+    @NotNull
     private final Money money;
 
     public SendMoneyCommand(AccountId sourceAccountId, AccountId targetAccountId, Money money) {
@@ -14,9 +19,7 @@ public class SendMoneyCommand {
         this.targetAccountId = targetAccountId;
         this.money = money;
 
-        requireNonNull(sourceAccountId);
-        requireNonNull(targetAccountId);
-        requireNonNull(money);
         requireGreaterThan(money, 0);
+        this.validateSelf();
     }
 }
