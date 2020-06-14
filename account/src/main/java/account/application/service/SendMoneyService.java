@@ -1,4 +1,4 @@
-package account.application;
+package account.application.service;
 
 import account.application.port.in.SendMoneyCommand;
 import account.application.port.in.SendMoneyUseCase;

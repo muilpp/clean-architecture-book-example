@@ -1,4 +1,4 @@
-package account.application.port;
+package account.application;
 
 import javax.validation.*;
 import java.util.Set;

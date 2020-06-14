@@ -1,6 +1,6 @@
 package account.application.port.in;
 
-import account.application.port.SelfValidating;
+import account.application.SelfValidating;
 import lombok.Getter;
 
 import javax.validation.constraints.Min;
