@@ -1,17 +1,20 @@
 package account.application.port.in;
 
+import account.application.port.SelfValidating;
 import lombok.Getter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Getter
-public class SendMoneyCommand extends SelfValidation<SendMoneyCommand> {
+public class SendMoneyCommand extends SelfValidating<SendMoneyCommand> {
 
-    @NotNull
+    @NotNull(message = "Source account cannot be null")
     private final AccountId sourceAccountId;
-    @NotNull
+    @NotNull(message = "Target account cannot be null")
     private final AccountId targetAccountId;
-    @NotNull
+    @NotNull(message = "Money cannot be null")
+    @Min(value = 0, message = "Money should not be less than 0")
     private final Money money;
 
     public SendMoneyCommand(AccountId sourceAccountId, AccountId targetAccountId, Money money) {
@@ -19,7 +22,6 @@ public class SendMoneyCommand extends SelfValidation<SendMoneyCommand> {
         this.targetAccountId = targetAccountId;
         this.money = money;
 
-        requireGreaterThan(money, 0);
         this.validateSelf();
     }
 }
