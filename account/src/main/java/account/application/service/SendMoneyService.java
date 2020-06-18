@@ -16,7 +16,6 @@ public class SendMoneyService implements SendMoneyUseCase {
 
     @Override
     public boolean sendMoney(SendMoneyCommand sendMoneyCommand) {
-        //TODO Implement!
-        return false;
+        throw new UnsupportedOperationException("not implemented yet");
     }
 }
