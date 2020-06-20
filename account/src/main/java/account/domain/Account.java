@@ -1,13 +1,29 @@
 package account.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Account {
 
+    @Getter
     private AccountId accountId;
     private Money baselineBalance;
+    @Getter
     private ActivityWindow activityWindow;
+
+    public static Account withoutId(Money baselineBalance, ActivityWindow activityWindow) {
+        return new Account(null, baselineBalance, activityWindow);
+    }
+
+    public static Account withId(AccountId accountId, Money baselineBalance, ActivityWindow activityWindow) {
+        return new Account(accountId, baselineBalance, activityWindow);
+    }
 
     public Money calculateBalance() {
         return Mondey.add(this.baselineBalance, this.activityWindow.calculateBalance(this.id));
