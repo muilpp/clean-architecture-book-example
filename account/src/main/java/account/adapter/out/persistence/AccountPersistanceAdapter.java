@@ -19,6 +19,7 @@ public class AccountPersistanceAdapter implements LoadAccountPort, UpdateAccount
     private final ActivityRepository activityRepository;
     private final AccountMapper accountMapper;
 
+    @Override
     public Account loadAccount(AccountId accountId, LocalDateTime baselineDate) {
         AccountJpaEntity account = accountRepository.findById(accountId.getValue()).orElseThrow(EntityNotFoundException::new);
 
@@ -33,7 +34,8 @@ public class AccountPersistanceAdapter implements LoadAccountPort, UpdateAccount
         return value == null ? 0L : value;
     }
 
-    private void updateActivities(Account account) {
+    @Override
+    public void updateActivities(Account account) {
         for (Activity activity : account.getActivityWindow().getActivities()) {
             if (activity.getId() == null) {
                 activityRepository.save(accountMapper.mapToJpaEntity(activity));
